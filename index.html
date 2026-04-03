@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Berlin Tamil Sangam — Membership Registration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0F0F0F;
+    --bg-gradient: linear-gradient(168deg, #0F0F0F 0%, #141414 40%, #0F0F0F 100%);
+    --surface: #1A1A1A;
+    --surface-2: #252525;
+    --surface-3: #2D2D2D;
+    --border: #3D3D3D;
+    --border-focus: #4D4D4D;
+    --text: #F5F5F5;
+    --text-muted: #A8A8A8;
+    --text-dim: #6B6B6B;
+    --accent: #FF6B4A;
+    --accent-light: #FF8470;
+    --accent-glow: rgba(255, 107, 74, 0.15);
+    --accent-glow-strong: rgba(255, 107, 74, 0.25);
+    --green: #4CAF50;
+    --green-dim: rgba(76, 175, 80, 0.12);
+    --yellow: #f5a623;
+    --red: #F44336;
+    --red-dim: rgba(244, 67, 54, 0.1);
+    --blue: #2196F3;
+    --purple: #a855f7;
+    --radius: 14px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── AMBIENT BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -30%; left: -20%;
+    width: 70vw; height: 70vh;
+    background: radial-gradient(ellipse, rgba(232,93,42,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -20%; right: -15%;
+    width: 60vw; height: 60vh;
+    background: radial-gradient(ellipse, rgba(74,158,255,0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15,17,23,0.88);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px solid rgba(46,51,69,0.6);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .header-brand {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .header-logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: white;
+    box-shadow: 0 2px 12px rgba(232,93,42,0.3);
+  }
+  .header-text h1 {
+    font-size: 15px; font-weight: 700; color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .header-text span {
+    font-size: 11px; color: var(--text-muted); font-weight: 500;
+  }
+  .header-lang {
+    display: flex; gap: 4px;
+  }
+  .lang-btn {
+    padding: 5px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+    background: none; border: 1px solid transparent;
+    color: var(--text-muted); cursor: pointer;
+    transition: var(--transition);
+  }
+  .lang-btn:hover { color: var(--text); background: var(--surface-2); }
+  .lang-btn.active {
+    color: var(--accent-light);
+    background: var(--accent-glow);
+    border-color: rgba(232,93,42,0.2);
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .main {
+    position: relative; z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 88px 20px 40px;
+  }
+
+  /* ── WELCOME CARD ── */
+  .welcome {
+    text-align: center;
+    margin-bottom: 32px;
+    animation: slideUp 0.6s ease-out;
+  }
+  .welcome-tamil {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light), #ffb088);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .welcome h2 {
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .welcome p {
+    font-size: 14px; color: var(--text-muted);
+    max-width: 420px; margin: 0 auto;
+  }
+
+  /* ── STEPPER ── */
+  .stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 32px;
+    padding: 0 8px;
+    animation: slideUp 0.6s ease-out 0.1s both;
+  }
+  .step-item {
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+  .step-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--text-muted);
+    transition: var(--transition);
+    position: relative;
+  }
+  .step-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 0 20px rgba(232,93,42,0.3);
+  }
+  .step-dot.done {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .step-dot.done::after {
+    content: '\2713'; font-size: 14px;
+  }
+  .step-dot.done span { display: none; }
+  .step-label {
+    font-size: 11px; font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: var(--transition);
+  }
+  .step-item.active .step-label { color: var(--text); }
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin: 0 6px;
+    border-radius: 2px;
+    transition: var(--transition);
+    min-width: 16px;
+  }
+  .step-line.done { background: var(--green); }
+
+  @media (max-width: 540px) {
+    .step-label { display: none; }
+    .step-line { min-width: 12px; margin: 0 4px; }
+  }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    animation: slideUp 0.5s ease-out 0.15s both;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light), rgba(232,93,42,0.2));
+    border-radius: 18px 18px 0 0;
+  }
+
+  .step-content {
+    display: none;
+    animation: fadeSlide 0.35s ease-out;
+  }
+  .step-content.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateX(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .step-header {
+    margin-bottom: 24px;
+  }
+  .step-header h3 {
+    font-size: 18px; font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .step-header p {
+    font-size: 13px; color: var(--text-muted);
+  }
+
+  /* ── FORM INPUTS ── */
+  .field-group { margin-bottom: 18px; }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 480px) {
+    .field-row { grid-template-columns: 1fr; gap: 12px; }
+  }
+  .field-row-3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 540px) {
+    .field-row-3 { grid-template-columns: 1fr; }
+  }
+
+  label.field-label {
+    display: block;
+    font-size: 12px; font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  label.field-label .req {
+    color: var(--accent);
+    margin-left: 2px;
+  }
+
+  input.field, select.field, textarea.field {
+    width: 100%;
+    min-height: 56px;
+    padding: 14px 14px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    transition: var(--transition);
+    outline: none;
+  }
+  input.field::placeholder, textarea.field::placeholder {
+    color: var(--text-dim);
+  }
+  input.field:focus, select.field:focus, textarea.field:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  input.field.error, select.field.error {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px var(--red-dim);
+  }
+  select.field {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b90a0'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+
+  .field-error {
+    font-size: 12px; color: var(--red);
+    margin-top: 4px;
+    display: none;
+    align-items: center; gap: 4px;
+  }
+  .field-error.show { display: flex; }
+  .field-hint {
+    font-size: 11px; color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  /* ── LANGUAGE SELECTOR (Step 1) ── */
+  .lang-select {
+    display: flex; gap: 8px;
+  }
+  .lang-option {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+    font-size: 13px; font-weight: 600;
+    color: var(--text-muted);
+  }
+  .lang-option:hover { border-color: var(--border-focus); color: var(--text); }
+  .lang-option.selected {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    color: var(--accent-light);
+  }
+  .lang-option small {
+    display: block; font-size: 10px; font-weight: 500;
+    color: var(--text-dim); margin-top: 2px;
+  }
+  .lang-option.selected small { color: var(--accent); }
+
+  /* ── TIER CARDS (Step 2) ── */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 480px) {
+    .tier-grid { grid-template-columns: 1fr; }
+  }
+  .tier-card {
+    padding: 18px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .tier-card:hover { border-color: var(--border-focus); transform: translateY(-1px); }
+  .tier-card.selected {
+    border-color: var(--accent);
+    background: rgba(232,93,42,0.06);
+  }
+  .tier-card.selected::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  }
+  .tier-check {
+    position: absolute; top: 12px; right: 12px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+    font-size: 11px; color: transparent;
+  }
+  .tier-card.selected .tier-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  .tier-name {
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .tier-price {
+    font-size: 22px; font-weight: 700;
+    color: var(--accent-light);
+    margin-bottom: 4px;
+  }
+  .tier-price span {
+    font-size: 12px; font-weight: 500;
+    color: var(--text-muted);
+  }
+  .tier-desc {
+    font-size: 12px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .tier-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .tier-badge.popular {
+    background: var(--accent-glow-strong);
+    color: var(--accent-light);
+  }
+  .tier-badge.free {
+    background: var(--green-dim);
+    color: var(--green);
+  }
+
+  /* ── HOUSEHOLD MEMBERS ── */
+  .household-section {
+    display: none;
+    animation: fadeSlide 0.3s ease-out;
+  }
+  .household-section.show { display: block; }
+
+  .member-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .member-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .member-card-title {
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .member-type-badge {
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px; font-weight: 600;
+    background: rgba(74,158,255,0.12);
+    color: var(--blue);
+  }
+  .remove-member-btn {
+    background: none; border: none;
+    color: var(--text-dim); cursor: pointer;
+    font-size: 18px; padding: 4px;
+    transition: var(--transition);
+    border-radius: 6px;
+  }
+  .remove-member-btn:hover { color: var(--red); background: var(--red-dim); }
+
+  .add-member-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: none;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    font-size: 13px; font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 12px;
+  }
+  .add-member-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent-light);
+    background: var(--accent-glow);
+  }
+
+  /* ── FILE UPLOAD ── */
+  .upload-area {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 32px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+  }
+  .upload-area:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .upload-area.has-file {
+    border-color: var(--green);
+    background: var(--green-dim);
+    border-style: solid;
+  }
+  .upload-icon {
+    font-size: 32px; margin-bottom: 8px;
+    opacity: 0.7;
+  }
+  .upload-text {
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .upload-hint {
+    font-size: 11px; color: var(--text-dim);
+  }
+  .upload-input {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer;
+  }
+
+  /* ── PROOF TYPE SELECTOR ── */
+  .proof-type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 480px) {
+    .proof-type-grid { grid-template-columns: 1fr; }
+  }
+  .proof-type-btn {
+    padding: 10px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+    font-size: 11px; font-weight: 600;
+    color: var(--text-muted);
+    font-family: inherit;
+  }
+  .proof-type-btn:hover { border-color: var(--border-focus); }
+  .proof-type-btn.selected {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    color: var(--accent-light);
+  }
+
+  /* ── SKILLS / INTERESTS CHIPS ── */
+  .chip-grid {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .chip {
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px; font-weight: 500;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-muted);
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--border-focus); color: var(--text); }
+  .chip.selected {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    color: var(--accent-light);
+  }
+  .chip .chip-icon { margin-right: 4px; }
+
+  /* ── GDPR CHECKBOXES ── */
+  .consent-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .consent-item:hover { border-color: var(--border-focus); }
+  .consent-item.checked { border-color: var(--accent); background: var(--accent-glow); }
+  .consent-item.error-highlight { border-color: var(--red); }
+  .consent-check {
+    width: 22px; height: 22px; flex-shrink: 0;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+    margin-top: 1px;
+  }
+  .consent-item.checked .consent-check {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .consent-item.checked .consent-check::after {
+    content: '\2713'; color: white; font-size: 12px; font-weight: 700;
+  }
+  .consent-label {
+    font-size: 13px; font-weight: 500;
+    line-height: 1.5;
+  }
+  .consent-label small {
+    display: block;
+    font-size: 11px; color: var(--text-muted);
+    margin-top: 2px; font-weight: 400;
+  }
+  .consent-required {
+    color: var(--accent); font-size: 10px; font-weight: 700;
+    margin-left: 4px;
+  }
+
+  /* ── PAYMENT SECTION ── */
+  .payment-methods {
+    display: flex; gap: 8px;
+    margin-bottom: 20px;
+  }
+  .pay-method {
+    flex: 1;
+    padding: 14px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+    font-family: inherit;
+  }
+  .pay-method:hover { border-color: var(--border-focus); }
+  .pay-method.selected {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .pay-method-icon { font-size: 24px; margin-bottom: 4px; }
+  .pay-method-name {
+    font-size: 12px; font-weight: 600;
+    color: var(--text-muted);
+  }
+  .pay-method.selected .pay-method-name { color: var(--accent-light); }
+
+  .payment-form {
+    display: none;
+    animation: fadeSlide 0.3s ease-out;
+  }
+  .payment-form.show { display: block; }
+
+  .mock-stripe {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .mock-stripe-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .mock-stripe label {
+    font-size: 11px; color: var(--text-dim);
+    display: block; margin-bottom: 4px; font-weight: 500;
+  }
+  .mock-stripe input {
+    width: 100%;
+    padding: 9px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+  .mock-stripe input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .paypal-btn {
+    width: 100%;
+    padding: 14px;
+    background: #FFC439;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px; font-weight: 700;
+    color: #003087;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: -0.01em;
+    transition: var(--transition);
+  }
+  .paypal-btn:hover { background: #f5b833; }
+
+  /* ── ORDER SUMMARY ── */
+  .order-summary {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .order-summary h4 {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+  .order-line {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+  }
+  .order-line + .order-line { border-top: 1px solid rgba(46,51,69,0.5); }
+  .order-line .label { color: var(--text-muted); }
+  .order-line .value { font-weight: 600; }
+  .order-total {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0 0;
+    margin-top: 6px;
+    border-top: 2px solid var(--border);
+    font-size: 16px; font-weight: 700;
+  }
+  .order-total .value {
+    color: var(--accent-light);
+    font-size: 20px;
+  }
+
+  /* ── FREE TIER CONFIRMATION ── */
+  .free-confirmation {
+    text-align: center;
+    padding: 32px 20px;
+  }
+  .free-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 28px;
+  }
+  .free-confirmation h3 {
+    font-size: 18px; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .free-confirmation p {
+    font-size: 13px; color: var(--text-muted);
+    max-width: 360px; margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 48px 20px;
+    animation: slideUp 0.6s ease-out;
+  }
+  .success-screen.show { display: block; }
+  .success-icon {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--green-dim);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 36px;
+    animation: popIn 0.4s ease-out 0.2s both;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.1); }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .success-screen h2 {
+    font-size: 24px; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .success-screen .success-tamil {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: 16px;
+    color: var(--accent-light);
+    margin-bottom: 12px;
+  }
+  .success-screen p {
+    font-size: 14px; color: var(--text-muted);
+    max-width: 400px; margin: 0 auto 24px;
+  }
+
+  /* ── NAVIGATION BUTTONS ── */
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(46,51,69,0.5);
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600;
+    border: none; cursor: pointer;
+    font-family: inherit;
+    transition: var(--transition);
+    letter-spacing: -0.01em;
+  }
+  .btn-back {
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .btn-back:hover { color: var(--text); background: var(--surface-3); }
+  .btn-next {
+    flex: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: white;
+    box-shadow: 0 4px 16px rgba(232,93,42,0.3);
+  }
+  .btn-next:hover {
+    box-shadow: 0 6px 24px rgba(232,93,42,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-next:active { transform: translateY(0); }
+  .btn-next:disabled {
+    opacity: 0.5; cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-submit {
+    flex: 1;
+    background: linear-gradient(135deg, var(--green), #2ad14e);
+    color: white;
+    box-shadow: 0 4px 16px rgba(52,199,89,0.3);
+    font-size: 15px;
+  }
+  .btn-submit:hover {
+    box-shadow: 0 6px 24px rgba(52,199,89,0.4);
+    transform: translateY(-1px);
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 24px 0 18px;
+  }
+  .section-divider span {
+    font-size: 11px; font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: var(--border);
+  }
+
+  /* ── MISC ── */
+  .hidden { display: none !important; }
+  .fade-in { animation: fadeSlide 0.35s ease-out; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-brand">
+    <div class="header-logo">B</div>
+    <div class="header-text">
+      <h1>Berlin Tamil Sangam</h1>
+      <span>Membership Registration</span>
+    </div>
+  </div>
+  <div class="header-lang">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('de')">DE</button>
+    <button class="lang-btn" onclick="setLang('ta')">TA</button>
+  </div>
+</header>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- Welcome -->
+  <div class="welcome" id="welcomeSection">
+    <div class="welcome-tamil">வணக்கம்!</div>
+    <h2>Join Our Community</h2>
+    <p>Become part of Berlin's vibrant Tamil community. Register in just a few minutes.</p>
+  </div>
+
+  <!-- Stepper -->
+  <div class="stepper" id="stepper">
+    <div class="step-item active" data-step="1">
+      <div class="step-dot active"><span>1</span></div>
+      <span class="step-label">Personal</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item" data-step="2">
+      <div class="step-dot"><span>2</span></div>
+      <span class="step-label">Membership</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item" data-step="3">
+      <div class="step-dot"><span>3</span></div>
+      <span class="step-label">Interests</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item" data-step="4">
+      <div class="step-dot"><span>4</span></div>
+      <span class="step-label">Consent</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item" data-step="5">
+      <div class="step-dot"><span>5</span></div>
+      <span class="step-label">Payment</span>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="form-card" id="formCard">
+
+    <!-- ════════ STEP 1: PERSONAL INFO ════════ -->
+    <div class="step-content active" id="step1">
+      <div class="step-header">
+        <h3>Personal Information</h3>
+        <p>Tell us about yourself. All fields marked with * are required.</p>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">First Name <span class="req">*</span></label>
+          <input type="text" class="field" id="firstName" placeholder="e.g. Ashok" required>
+          <div class="field-error" id="firstNameError">Please enter your first name</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Last Name <span class="req">*</span></label>
+          <input type="text" class="field" id="lastName" placeholder="e.g. Gunasekaran" required>
+          <div class="field-error" id="lastNameError">Please enter your last name</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Email <span class="req">*</span></label>
+          <input type="email" class="field" id="email" placeholder="you@example.com" required>
+          <div class="field-error" id="emailError">Please enter a valid email</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Confirm Email <span class="req">*</span></label>
+          <input type="email" class="field" id="confirmEmail" placeholder="Confirm your email" required>
+          <div class="field-error" id="confirmEmailError">Emails do not match</div>
+          <div class="field-hint">Kindly ensure the same Email ID is used for payment and future references</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Mobile Number <span class="req">*</span></label>
+          <input type="tel" class="field" id="phone" placeholder="+49 170 1234567" required>
+          <div class="field-error" id="phoneError">Please enter your phone number</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">WhatsApp Number <span class="req">*</span></label>
+          <input type="tel" class="field" id="whatsapp" placeholder="+49 170 1234567">
+          <div class="field-error" id="whatsappError">Please enter your WhatsApp number</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Profession</label>
+        <input type="text" class="field" id="profession" placeholder="e.g. Software Engineer, Student, Homemaker">
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Date of Birth <span class="req">*</span></label>
+          <input type="date" class="field" id="dob" required>
+          <div class="field-error" id="dobError">Please enter your date of birth</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Gender <span class="req">*</span></label>
+          <div class="lang-select">
+            <div class="lang-option" data-val="male" onclick="selectGender(this)">Male</div>
+            <div class="lang-option" data-val="female" onclick="selectGender(this)">Female</div>
+            <div class="lang-option" data-val="diverse" onclick="selectGender(this)">Diverse</div>
+          </div>
+          <div class="field-error" id="genderError">Please select your gender</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Marital Status <span class="req">*</span></label>
+          <select class="field" id="maritalStatus">
+            <option value="" disabled selected>Select...</option>
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+            <option value="not_disclose">Not Willing to Disclose</option>
+          </select>
+          <div class="field-error" id="maritalError">Please select your marital status</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Nationality</label>
+          <input type="text" class="field" id="nationality" placeholder="e.g. Indian, German">
+        </div>
+      </div>
+
+      <div class="section-divider"><span>Address</span></div>
+
+      <div class="field-group">
+        <label class="field-label">Street &amp; Number <span class="req">*</span></label>
+        <input type="text" class="field" id="street" placeholder="Kottbusser Damm 42">
+        <div class="field-error" id="streetError">Please enter your street address</div>
+      </div>
+
+      <div class="field-row-3">
+        <div class="field-group">
+          <label class="field-label">City <span class="req">*</span></label>
+          <input type="text" class="field" id="city" value="Berlin">
+          <div class="field-error" id="cityError">Please enter your city</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">PLZ <span class="req">*</span></label>
+          <input type="text" class="field" id="plz" placeholder="10999" maxlength="5">
+          <div class="field-error" id="plzError">Enter a valid PLZ</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Country</label>
+          <select class="field" id="country">
+            <option value="DE" selected>Germany</option>
+            <option value="AT">Austria</option>
+            <option value="CH">Switzerland</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section-divider"><span>Language Preference</span></div>
+
+      <div class="field-group">
+        <div class="lang-select">
+          <div class="lang-option selected" data-lang="en" onclick="selectLangPref(this)">
+            English
+            <small>Default</small>
+          </div>
+          <div class="lang-option" data-lang="de" onclick="selectLangPref(this)">
+            Deutsch
+            <small>German</small>
+          </div>
+          <div class="lang-option" data-lang="ta" onclick="selectLangPref(this)">
+            தமிழ்
+            <small>Tamil</small>
+          </div>
+        </div>
+        <div class="field-hint">We'll send emails and messages in your preferred language.</div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-next" onclick="goToStep(2)">Continue to Membership &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 2: MEMBERSHIP TIER ════════ -->
+    <div class="step-content" id="step2">
+      <div class="step-header">
+        <h3>Choose Your Membership</h3>
+        <p>Select the tier that best fits your household.</p>
+      </div>
+
+      <div class="tier-grid">
+        <div class="tier-card" onclick="selectTier('family', this)">
+          <div class="tier-check">&check;</div>
+          <div class="tier-badge popular">Most Popular</div>
+          <div class="tier-name">Family</div>
+          <div class="tier-price">&euro;40 <span>/year</span></div>
+          <div class="tier-desc">For families with children. Includes spouse/partner and all children.</div>
+        </div>
+        <div class="tier-card" onclick="selectTier('couple', this)">
+          <div class="tier-check">&check;</div>
+          <div class="tier-name">Couple</div>
+          <div class="tier-price">&euro;30 <span>/year</span></div>
+          <div class="tier-desc">For couples without children. Includes you and your partner.</div>
+        </div>
+        <div class="tier-card" onclick="selectTier('individual', this)">
+          <div class="tier-check">&check;</div>
+          <div class="tier-name">Individual</div>
+          <div class="tier-price">&euro;20 <span>/year</span></div>
+          <div class="tier-desc">For single members. Full access to all events and benefits.</div>
+        </div>
+        <div class="tier-card" onclick="selectTier('student', this)">
+          <div class="tier-check">&check;</div>
+          <div class="tier-badge free">Free</div>
+          <div class="tier-name">Student / JobSeeker</div>
+          <div class="tier-price">&euro;0 <span>/year</span></div>
+          <div class="tier-desc">Students, job seekers, and Opportunity Card holders. Proof required.</div>
+        </div>
+      </div>
+
+      <div class="field-error" id="tierError" style="margin-bottom:14px">Please select a membership tier</div>
+
+      <!-- Family household -->
+      <div class="household-section" id="familySection">
+        <div class="section-divider"><span>Household Members</span></div>
+
+        <div class="member-card" id="partnerCard">
+          <div class="member-card-header">
+            <div class="member-card-title">
+              Spouse / Partner
+              <span class="member-type-badge">Adult</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">First Name <span class="req">*</span></label>
+              <input type="text" class="field" placeholder="First name">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Last Name <span class="req">*</span></label>
+              <input type="text" class="field" placeholder="Last name">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Date of Birth <span class="req">*</span></label>
+              <input type="date" class="field">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Email</label>
+              <input type="email" class="field" placeholder="Optional">
+            </div>
+          </div>
+        </div>
+
+        <div id="childrenContainer"></div>
+
+        <button class="add-member-btn" onclick="addChild()">
+          <span style="font-size:18px">+</span> Add Child
+        </button>
+      </div>
+
+      <!-- Couple partner -->
+      <div class="household-section" id="coupleSection">
+        <div class="section-divider"><span>Your Partner</span></div>
+        <div class="member-card">
+          <div class="member-card-header">
+            <div class="member-card-title">
+              Partner
+              <span class="member-type-badge">Adult</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">First Name <span class="req">*</span></label>
+              <input type="text" class="field" placeholder="First name">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Last Name <span class="req">*</span></label>
+              <input type="text" class="field" placeholder="Last name">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Date of Birth <span class="req">*</span></label>
+              <input type="date" class="field">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Email <span class="req">*</span></label>
+              <input type="email" class="field" placeholder="partner@email.com">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student proof -->
+      <div class="household-section" id="studentSection">
+        <div class="section-divider"><span>Proof of Eligibility</span></div>
+
+        <div class="field-group">
+          <label class="field-label">Document Type <span class="req">*</span></label>
+          <div class="proof-type-grid">
+            <button class="proof-type-btn" onclick="selectProofType(this, 'immatrikulation')">Immatrikulations&shy;bescheinigung</button>
+            <button class="proof-type-btn" onclick="selectProofType(this, 'opportunity')">Opportunity Card</button>
+            <button class="proof-type-btn" onclick="selectProofType(this, 'jobseeker')">JobSeeker Visa</button>
+          </div>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+          <input type="file" class="upload-input" id="proofUpload" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileUpload(this)">
+          <div class="upload-icon">&#128206;</div>
+          <div class="upload-text" id="uploadText">Drop your document here or click to browse</div>
+          <div class="upload-hint" id="uploadHint">PDF, JPG, or PNG &mdash; Max 5MB</div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-back" onclick="goToStep(1)">&larr; Back</button>
+        <button class="btn btn-next" onclick="goToStep(3)">Continue to Interests &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 3: INTERESTS ════════ -->
+    <div class="step-content" id="step3">
+      <div class="step-header">
+        <h3>Interests &amp; Skills</h3>
+        <p>Help us understand how you'd like to contribute. Select all that apply.</p>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Interests</label>
+        <div class="chip-grid" id="interestsGrid">
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#127917;</span>Cultural Activities</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#127912;</span>Creative Design</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#128247;</span>Photo / Videography</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#127908;</span>Event Management</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#127859;</span>Cooking</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#127926;</span>Music</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#128131;</span>Dance</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#128187;</span>Tech</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#127979;</span>Teaching</div>
+          <div class="chip" onclick="toggleChip(this)"><span class="chip-icon">&#9917;</span>Sports</div>
+        </div>
+      </div>
+
+      <div class="field-group" style="margin-top:14px">
+        <label class="field-label">Other Interests</label>
+        <input type="text" class="field" id="otherInterests" placeholder="Any other interests not listed above...">
+      </div>
+
+      <div class="section-divider"><span>Committee Interest</span></div>
+
+      <div class="field-group">
+        <label class="field-label">Which committees interest you?</label>
+        <div class="chip-grid" id="committeeGrid">
+          <div class="chip" onclick="toggleChip(this)">&#127917; Cultural</div>
+          <div class="chip" onclick="toggleChip(this)">&#128176; Finance</div>
+          <div class="chip" onclick="toggleChip(this)">&#128102; Youth</div>
+          <div class="chip" onclick="toggleChip(this)">&#128105; Women's</div>
+        </div>
+      </div>
+
+      <div class="section-divider"><span>One More Thing</span></div>
+
+      <div class="field-group">
+        <label class="field-label">How did you hear about us?</label>
+        <select class="field" id="referralSource">
+          <option value="" disabled selected>Select an option...</option>
+          <option value="social">Social Media</option>
+          <option value="friend">Friend or Family</option>
+          <option value="event">Community Event</option>
+          <option value="website">Website</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-back" onclick="goToStep(2)">&larr; Back</button>
+        <button class="btn btn-next" onclick="goToStep(4)">Continue to Consent &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 4: TERMS & CONSENT ════════ -->
+    <div class="step-content" id="step4">
+      <div class="step-header">
+        <h3>Terms &amp; Data Protection</h3>
+        <p>Please review our terms and conditions and provide your consent.</p>
+      </div>
+
+      <!-- Terms and Conditions -->
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;max-height:280px;overflow-y:auto;font-size:12px;color:var(--text-muted);line-height:1.8">
+        <div style="font-size:14px;font-weight:700;color:var(--accent-light);margin-bottom:12px">Terms and Conditions</div>
+        <ol style="padding-left:18px;display:flex;flex-direction:column;gap:8px">
+          <li>The minimum age for applying for membership is 18 years.</li>
+          <li>The application will be processed only after the remittance of the membership fee. It can be withdrawn within 15 days by sending a request to berlin.sangam@gmail.com</li>
+          <li>The process of reviewing and deciding upon the application rests with the Board.</li>
+          <li>The membership for the next subscription term can be cancelled by sending a written request to sangam Email ID atmost 15 days before the renewal date.</li>
+          <li>Membership is non-transferable and is valid for the mentioned subscription term. Membership should be renewed to avoid automatic termination.</li>
+          <li>Member should not use Berlin Tamil Sangam e.V. for personal or professional benefits.</li>
+          <li>Member should not represent Berlin Tamil Sangam e.V. in media or any other public forum without prior approval from the Board.</li>
+          <li>Berlin Tamil Sangam e.V. are committed to ensuring the security and protection of the personal information that we process, and to provide a compliant and consistent approach to data protection.</li>
+          <li>GDPR statement of Berlin Tamil Sangam e.V. can be accessed using the following link: <a href="https://berlintamilsangam.com/gdpr-statement/" style="color:var(--accent-light)" target="_blank">GDPR Statement</a> (<a href="https://berlintamilsangam.com/gdpr-statement-german/" style="color:var(--accent-light)" target="_blank">German Version</a>)</li>
+          <li>The data submitted will be stored in our database and servers which could be outside Germany. The data will be persisted as long as the membership is active. After cancellation only basic contact details will be stored for future correspondence.</li>
+          <li>We would use your postcode and street name to generate an anonymous heatmap to group community members that would help us facilitate organizing events and meetups in your locality.</li>
+          <li>The contact details on WhatsApp will be used to add you to our member-only group. In case you do not wish to be part of the group, you can exit from the group and notify us.</li>
+          <li>By submitting your email details, you agree to receive updates from our sangam on events and other activities organized by us. In case you do not wish to receive such email or to be contacted, kindly unsubscribe from the mailing list and inform us on the same.</li>
+        </ol>
+      </div>
+
+      <div class="consent-item" onclick="toggleConsent(this)" data-required="true" id="consent1">
+        <div class="consent-check"></div>
+        <div class="consent-label">
+          I agree to the above Terms and Conditions of Berlin Tamil Sangam e.V.
+          <span class="consent-required">REQUIRED</span>
+        </div>
+      </div>
+
+      <div class="consent-item" onclick="toggleConsent(this)" data-required="true" id="consent2">
+        <div class="consent-check"></div>
+        <div class="consent-label">
+          I have read and accept the <a href="https://berlintamilsangam.com/gdpr-statement/" style="color:var(--accent-light);text-decoration:underline" onclick="event.stopPropagation()" target="_blank">GDPR / Privacy Policy</a>
+          <span class="consent-required">REQUIRED</span>
+          <small>You acknowledge how we collect, store, and process your personal data.</small>
+        </div>
+      </div>
+
+      <div class="consent-item" onclick="toggleConsent(this)" data-required="false" id="consent3">
+        <div class="consent-check"></div>
+        <div class="consent-label">
+          I'd like to receive newsletters and community updates via email
+          <small>Optional. You can unsubscribe at any time.</small>
+        </div>
+      </div>
+
+      <div class="consent-item" onclick="toggleConsent(this)" data-required="false" id="consent4">
+        <div class="consent-check"></div>
+        <div class="consent-label">
+          I'd like to receive event reminders and updates via WhatsApp
+          <small>Optional. You can exit the WhatsApp group at any time.</small>
+        </div>
+      </div>
+
+      <div class="field-error" id="consentError" style="margin-top:-4px;margin-bottom:8px">Please accept all required consents to continue</div>
+
+      <div class="section-divider"><span>Declaration</span></div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Date <span class="req">*</span></label>
+          <input type="date" class="field" id="declarationDate" required>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Place <span class="req">*</span></label>
+          <input type="text" class="field" id="declarationPlace" placeholder="e.g. Berlin" value="Berlin">
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-back" onclick="goToStep(3)">&larr; Back</button>
+        <button class="btn btn-next" onclick="goToStep(5)">Continue to Payment &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 5: REVIEW & SUBMIT ════════ -->
+    <div class="step-content" id="step5">
+      <!-- Paid tier content -->
+      <div id="paidPayment">
+        <div class="step-header">
+          <h3>Complete Your Registration</h3>
+          <p>Review your summary and proceed to secure payment.</p>
+        </div>
+
+        <div class="order-summary" id="orderSummary">
+          <h4>Order Summary</h4>
+          <div class="order-line">
+            <span class="label" id="summaryTier">Family Membership</span>
+            <span class="value" id="summaryPrice">&euro;40.00</span>
+          </div>
+          <div class="order-line">
+            <span class="label">Billing Period</span>
+            <span class="value">Annual</span>
+          </div>
+          <div class="order-total">
+            <span>Total Due Today</span>
+            <span class="value" id="summaryTotal">&euro;40.00</span>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:20px 0;text-align:center">
+          <div style="font-size:28px;margin-bottom:8px">&#128274;</div>
+          <p style="font-size:14px;color:var(--text);margin-bottom:6px;font-weight:600">Secure Payment via Mollie</p>
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.6">You will be securely redirected to our payment provider where you can pay by <strong>Credit Card, SEPA, iDEAL, or PayPal</strong>. Your payment details are never stored on our servers.</p>
+        </div>
+
+        <!-- API error banner (hidden by default) -->
+        <div id="apiErrorBanner" style="display:none;background:var(--red-dim);border:1px solid rgba(244,67,54,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px">
+          <p style="color:var(--red);font-size:13px;font-weight:600;margin-bottom:4px">Registration failed</p>
+          <p id="apiErrorMsg" style="color:var(--text-muted);font-size:12px">Something went wrong. Please try again.</p>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-back" onclick="goToStep(4)">&larr; Back</button>
+          <button class="btn btn-submit" onclick="submitForm()" id="payBtn">
+            <span id="payBtnText">Proceed to Payment &rarr;</span>
+            <span id="payBtnSpinner" style="display:none">Submitting...</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Free tier content -->
+      <div id="freePayment" class="hidden">
+        <div class="step-header">
+          <h3>Submit Your Application</h3>
+          <p>Review your details and submit your membership application.</p>
+        </div>
+
+        <div class="free-confirmation">
+          <div class="free-icon">&#128220;</div>
+          <h3>Ready to Submit</h3>
+          <p>Once submitted, our committee will review your uploaded documents and get back to you within 2-3 business days.</p>
+          <p style="margin-top:12px;font-size:12px;color:var(--text-dim)">You'll receive a confirmation email with your reference number.</p>
+        </div>
+
+        <!-- API error banner for free tier -->
+        <div id="apiErrorBannerFree" style="display:none;background:var(--red-dim);border:1px solid rgba(244,67,54,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px">
+          <p style="color:var(--red);font-size:13px;font-weight:600;margin-bottom:4px">Submission failed</p>
+          <p id="apiErrorMsgFree" style="color:var(--text-muted);font-size:12px">Something went wrong. Please try again.</p>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-back" onclick="goToStep(4)">&larr; Back</button>
+          <button class="btn btn-submit" onclick="submitForm()" id="freeBtnSubmit">
+            <span id="freeBtnText">Submit Application &#10003;</span>
+            <span id="freeBtnSpinner" style="display:none">Submitting...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /form-card -->
+
+  <!-- Success screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">&#10003;</div>
+    <h2>Welcome to Berlin Tamil Sangam!</h2>
+    <div class="success-tamil">&#2953;&#2993;&#3009;&#2986;&#3021;&#2986;&#3007;&#2985;&#2992;&#3021; &#2986;&#2980;&#3007;&#2997;&#3009; &#2997;&#3014;&#2993;&#3021;&#2993;&#3007;&#2965;&#2992;&#2990;&#3006;&#2965; &#2990;&#3009;&#2975;&#3007;&#2984;&#3021;&#2980;&#2980;&#3009;!</div>
+    <div id="refNumberDisplay" style="margin:16px 0;padding:12px 20px;background:rgba(255,107,74,0.1);border:1px solid rgba(255,107,74,0.2);border-radius:10px;display:inline-block">
+      <span style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:2px">Your Reference Number</span>
+      <span id="refNumberValue" style="font-size:20px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:0.05em"></span>
+    </div>
+    <p id="successMsg">Your application has been submitted successfully.</p>
+    <p id="successEmailMsg" style="font-size:13px;color:var(--text-muted);margin-top:8px"></p>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:12px">Please save your reference number for future correspondence.</p>
+    <button class="btn btn-next" style="margin:16px auto 0;max-width:280px" onclick="location.reload()">Back to Home &rarr;</button>
+  </div>
+
+</main>
+
+<script>
+  // ── CONFIG ──
+  const API_BASE = 'http://crmqa.berlintamilsangam.com/api';
+
+  // ── STATE ──
+  let currentStep = 1;
+  let selectedTier = null;
+  let childCount = 0;
+  let isSubmitting = false;
+
+  const tierData = {
+    family:     { name: 'Family Membership',   price: 40, paid: true,  apiTier: 'FAMILY' },
+    couple:     { name: 'Couple Membership',   price: 30, paid: true,  apiTier: 'COUPLE' },
+    individual: { name: 'Individual Membership', price: 20, paid: true, apiTier: 'INDIVIDUAL' },
+    student:    { name: 'Student / JobSeeker', price: 0,  paid: false, apiTier: 'STUDENT' }
+  };
+
+  const genderMap   = { male: 'MALE', female: 'FEMALE', diverse: 'OTHER' };
+  const maritalMap  = { Single: 'SINGLE', Married: 'MARRIED', 'Prefer not to disclose': 'OTHER' };
+
+  // ── NAVIGATION ──
+  function goToStep(step) {
+    if (step > currentStep && !validateStep(currentStep)) return;
+    currentStep = step;
+    updateStepper();
+    updateStepContent();
+    updatePaymentView();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateStepper() {
+    document.querySelectorAll('.step-item').forEach((item, i) => {
+      const stepNum = i + 1;
+      const dot = item.querySelector('.step-dot');
+      dot.classList.remove('active', 'done');
+      item.classList.remove('active');
+      if (stepNum < currentStep) { dot.classList.add('done'); }
+      else if (stepNum === currentStep) { dot.classList.add('active'); item.classList.add('active'); }
+    });
+    document.querySelectorAll('.step-line').forEach((line, i) => {
+      line.classList.toggle('done', i + 1 < currentStep);
+    });
+  }
+
+  function updateStepContent() {
+    document.querySelectorAll('.step-content').forEach((el, i) => {
+      el.classList.toggle('active', i + 1 === currentStep);
+    });
+  }
+
+  function updatePaymentView() {
+    if (currentStep !== 5 || !selectedTier) return;
+    const tier = tierData[selectedTier];
+    const paidEl = document.getElementById('paidPayment');
+    const freeEl = document.getElementById('freePayment');
+    if (tier.paid) {
+      paidEl.classList.remove('hidden');
+      freeEl.classList.add('hidden');
+      document.getElementById('summaryTier').textContent = tier.name;
+      document.getElementById('summaryPrice').textContent = `\u20AC${tier.price}.00`;
+      document.getElementById('summaryTotal').textContent = `\u20AC${tier.price}.00`;
+    } else {
+      paidEl.classList.add('hidden');
+      freeEl.classList.remove('hidden');
+    }
+  }
+
+  // ── VALIDATION ──
+  function validateStep(step) {
+    clearErrors();
+    if (step === 1) {
+      let valid = true;
+      const checks = [
+        ['firstName','firstNameError'],['lastName','lastNameError'],
+        ['phone','phoneError'],['whatsapp','whatsappError'],
+        ['dob','dobError'],['street','streetError'],['city','cityError'],['plz','plzError']
+      ];
+      checks.forEach(([fid, eid]) => {
+        if (!document.getElementById(fid).value.trim()) { showError(fid, eid); valid = false; }
+      });
+      const emailField = document.getElementById('email');
+      if (!emailField.value.trim() || !emailField.value.includes('@')) { showError('email','emailError'); valid = false; }
+      const confirmEmail = document.getElementById('confirmEmail');
+      if (confirmEmail.value.trim() !== emailField.value.trim()) { showError('confirmEmail','confirmEmailError'); valid = false; }
+      if (!selectedGender) { document.getElementById('genderError').classList.add('show'); valid = false; }
+      const marital = document.getElementById('maritalStatus');
+      if (!marital.value) { showError('maritalStatus','maritalError'); valid = false; }
+      return valid;
+    }
+    if (step === 2) {
+      if (!selectedTier) { document.getElementById('tierError').classList.add('show'); return false; }
+      return true;
+    }
+    if (step === 4) {
+      let valid = true;
+      ['consent1','consent2'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.classList.contains('checked')) { el.classList.add('error-highlight'); valid = false; }
+      });
+      if (!valid) document.getElementById('consentError').classList.add('show');
+      return valid;
+    }
+    return true;
+  }
+
+  function showError(fieldId, errorId) {
+    document.getElementById(fieldId).classList.add('error');
+    document.getElementById(errorId).classList.add('show');
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.field.error').forEach(el => el.classList.remove('error'));
+    document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.consent-item.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+  }
+
+  document.addEventListener('input', e => {
+    if (e.target.classList.contains('field') && e.target.classList.contains('error')) {
+      e.target.classList.remove('error');
+      const errEl = e.target.parentElement.querySelector('.field-error');
+      if (errEl) errEl.classList.remove('show');
+    }
+  });
+
+  // ── TIER SELECTION ──
+  function selectTier(tier, el) {
+    selectedTier = tier;
+    document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('tierError').classList.remove('show');
+    document.getElementById('familySection').classList.toggle('show', tier === 'family');
+    document.getElementById('coupleSection').classList.toggle('show', tier === 'couple');
+    document.getElementById('studentSection').classList.toggle('show', tier === 'student');
+  }
+
+  // ── ADD CHILD ──
+  function addChild() {
+    childCount++;
+    const container = document.getElementById('childrenContainer');
+    const card = document.createElement('div');
+    card.className = 'member-card fade-in';
+    card.innerHTML = `
+      <div class="member-card-header">
+        <div class="member-card-title">
+          Child ${childCount}
+          <span class="member-type-badge" style="background:rgba(168,85,247,0.12);color:var(--purple)">Child</span>
+        </div>
+        <button class="remove-member-btn" onclick="this.closest('.member-card').remove()">&times;</button>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">First Name <span class="req">*</span></label>
+          <input type="text" class="field child-first-name" placeholder="Child's first name">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Last Name</label>
+          <input type="text" class="field child-last-name" placeholder="Last name">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Date of Birth <span class="req">*</span></label>
+        <input type="date" class="field child-dob">
+      </div>
+    `;
+    container.appendChild(card);
+  }
+
+  // ── PROOF UPLOAD ──
+  let selectedProofType = null;
+
+  function selectProofType(btn, type) {
+    document.querySelectorAll('.proof-type-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedProofType = type;
+  }
+
+  function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File too large. Maximum size is 5MB.');
+      input.value = '';
+      return;
+    }
+    const area = document.getElementById('uploadArea');
+    area.classList.add('has-file');
+    document.getElementById('uploadText').textContent = file.name;
+    document.getElementById('uploadHint').textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB \u2014 Click to change`;
+  }
+
+  // ── CHIPS ──
+  function toggleChip(el) { el.classList.toggle('selected'); }
+
+  // ── CONSENT ──
+  function toggleConsent(el) {
+    el.classList.toggle('checked');
+    el.classList.remove('error-highlight');
+    document.getElementById('consentError').classList.remove('show');
+  }
+
+  // ── GENDER SELECT ──
+  let selectedGender = null;
+  function selectGender(el) {
+    document.querySelectorAll('[data-val]').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedGender = el.dataset.val;
+    document.getElementById('genderError').classList.remove('show');
+  }
+
+  // ── AUTO-SET DECLARATION DATE ──
+  const declDateEl = document.getElementById('declarationDate');
+  if (declDateEl) { declDateEl.value = new Date().toISOString().split('T')[0]; }
+
+  // ── LANGUAGE PREFERENCE ──
+  function selectLangPref(el) {
+    document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // ── HEADER LANG ──
+  function setLang(lang) {
+    document.querySelectorAll('.header .lang-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // ════════════════════════════════════════════════════════════════════
+  // ── API INTEGRATION ──
+  // ════════════════════════════════════════════════════════════════════
+
+  function getFieldValue(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function getSelectedChips(gridId) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return [];
+    return Array.from(grid.querySelectorAll('.chip.selected')).map(chip => {
+      // Strip emoji prefix from chip text
+      return chip.textContent.replace(/^[\s\uD800-\uDBFF][\uDC00-\uDFFF]\s*/, '').trim();
+    });
+  }
+
+  function getSelectedLangPref() {
+    const selected = document.querySelector('.lang-option.selected');
+    if (!selected) return 'EN';
+    const text = selected.textContent.trim().toLowerCase();
+    if (text.includes('deutsch')) return 'DE';
+    if (text.includes('தமிழ்') || text.includes('tamil')) return 'TA';
+    return 'EN';
+  }
+
+  function getCountryCode() {
+    const val = getFieldValue('country');
+    if (!val) return 'DE';
+    // Map select option values to ISO codes
+    const upper = val.toUpperCase();
+    if (['DE','AT','CH'].includes(upper)) return upper;
+    return upper.substring(0, 2) || 'DE';
+  }
+
+  function collectFormData() {
+    const tier = tierData[selectedTier];
+    if (!tier) return null;
+
+    // Primary person (Step 1)
+    const primaryPerson = {
+      firstName:      getFieldValue('firstName'),
+      lastName:       getFieldValue('lastName'),
+      email:          getFieldValue('email'),
+      phone:          getFieldValue('phone'),
+      whatsapp:       getFieldValue('whatsapp'),
+      dob:            getFieldValue('dob') || null,
+      gender:         genderMap[selectedGender] || null,
+      maritalStatus:  maritalMap[document.getElementById('maritalStatus')?.value] || null,
+      nationality:    getFieldValue('nationality') || null,
+      profession:     getFieldValue('profession') || null,
+      role:           'ADULT',
+      isPrimary:      true,
+      skills:         getSelectedChips('interestsGrid'),
+      committees:     getSelectedChips('committeeGrid'),
+      otherInterests: getFieldValue('otherInterests') || null,
+    };
+
+    const persons = [primaryPerson];
+
+    // Partner (Family / Couple tier)
+    if (selectedTier === 'family' || selectedTier === 'couple') {
+      const sectionId = selectedTier === 'family' ? 'familySection' : 'coupleSection';
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const inputs = section.querySelectorAll('.member-card .field');
+        // Family partner card has: firstName, lastName, dob, email (optional)
+        // Couple partner card has: firstName, lastName, dob, email
+        const partnerFields = Array.from(inputs);
+        if (partnerFields.length >= 2) {
+          const partner = {
+            firstName: partnerFields[0]?.value?.trim() || '',
+            lastName:  partnerFields[1]?.value?.trim() || '',
+            dob:       partnerFields[2]?.value?.trim() || null,
+            email:     partnerFields[3]?.value?.trim() || null,
+            role:      'ADULT',
+            isPrimary: false,
+          };
+          if (partner.firstName) persons.push(partner);
+        }
+      }
+    }
+
+    // Children (Family tier)
+    if (selectedTier === 'family') {
+      const childCards = document.querySelectorAll('#childrenContainer .member-card');
+      childCards.forEach(card => {
+        const fn  = card.querySelector('.child-first-name')?.value?.trim() || '';
+        const ln  = card.querySelector('.child-last-name')?.value?.trim() || '';
+        const dob = card.querySelector('.child-dob')?.value?.trim() || null;
+        if (fn) {
+          persons.push({ firstName: fn, lastName: ln || primaryPerson.lastName, dob, role: 'CHILD', isPrimary: false });
+        }
+      });
+    }
+
+    return {
+      tier:               tier.apiTier,
+      street:             getFieldValue('street') || null,
+      city:               getFieldValue('city') || 'Berlin',
+      plz:                getFieldValue('plz') || null,
+      country:            getCountryCode(),
+      languagePreference: getSelectedLangPref(),
+      howHeardAboutUs:    getFieldValue('referralSource') || null,
+      declarationDate:    getFieldValue('declarationDate') || null,
+      declarationPlace:   getFieldValue('declarationPlace') || 'Berlin',
+      persons:            persons,
+      consents: {
+        TERMS:      document.getElementById('consent1')?.classList.contains('checked') || false,
+        PRIVACY:    document.getElementById('consent2')?.classList.contains('checked') || false,
+        NEWSLETTER: document.getElementById('consent3')?.classList.contains('checked') || false,
+        WHATSAPP:   document.getElementById('consent4')?.classList.contains('checked') || false,
+      }
+    };
+  }
+
+  async function submitRegistration(data) {
+    const response = await fetch(`${API_BASE}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const body = await response.json();
+    if (!response.ok) {
+      const err = new Error(body.error || body.message || 'Registration failed');
+      err.status = response.status;
+      err.details = body.details || body.errors || {};
+      throw err;
+    }
+    return body;
+  }
+
+  async function uploadProofDocument(householdId, personId, file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('household_id', householdId);
+    formData.append('person_id', personId);
+
+    const response = await fetch(`${API_BASE}/auth/upload-proof`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData,
+    });
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      console.warn('Proof upload failed:', body);
+    }
+  }
+
+  function setSubmitting(loading) {
+    isSubmitting = loading;
+    // Paid tier button
+    const payBtn = document.getElementById('payBtn');
+    const payBtnText = document.getElementById('payBtnText');
+    const payBtnSpinner = document.getElementById('payBtnSpinner');
+    if (payBtn) {
+      payBtn.disabled = loading;
+      payBtn.style.opacity = loading ? '0.6' : '1';
+    }
+    if (payBtnText) payBtnText.style.display = loading ? 'none' : '';
+    if (payBtnSpinner) payBtnSpinner.style.display = loading ? 'inline' : 'none';
+
+    // Free tier button
+    const freeBtn = document.getElementById('freeBtnSubmit');
+    const freeBtnText = document.getElementById('freeBtnText');
+    const freeBtnSpinner = document.getElementById('freeBtnSpinner');
+    if (freeBtn) {
+      freeBtn.disabled = loading;
+      freeBtn.style.opacity = loading ? '0.6' : '1';
+    }
+    if (freeBtnText) freeBtnText.style.display = loading ? 'none' : '';
+    if (freeBtnSpinner) freeBtnSpinner.style.display = loading ? 'inline' : 'none';
+  }
+
+  function showApiError(message) {
+    // Show on whichever panel is visible
+    ['apiErrorBanner', 'apiErrorBannerFree'].forEach(id => {
+      const banner = document.getElementById(id);
+      const msgEl = document.getElementById(id === 'apiErrorBanner' ? 'apiErrorMsg' : 'apiErrorMsgFree');
+      if (banner) banner.style.display = 'block';
+      if (msgEl) msgEl.textContent = message;
+    });
+  }
+
+  function hideApiErrors() {
+    ['apiErrorBanner', 'apiErrorBannerFree'].forEach(id => {
+      const banner = document.getElementById(id);
+      if (banner) banner.style.display = 'none';
+    });
+  }
+
+  function showSuccessScreen(referenceNumber, email, isPaidTier) {
+    const formCard = document.getElementById('formCard');
+    const stepper = document.getElementById('stepper');
+    const welcome = document.getElementById('welcomeSection');
+    const success = document.getElementById('successScreen');
+
+    formCard.style.display = 'none';
+    stepper.style.display = 'none';
+    welcome.style.display = 'none';
+    success.classList.add('show');
+
+    document.getElementById('refNumberValue').textContent = referenceNumber;
+
+    if (isPaidTier) {
+      document.getElementById('successMsg').textContent =
+        'Your registration has been submitted. You will now be redirected to complete your payment.';
+    } else {
+      document.getElementById('successMsg').textContent =
+        'Your application has been submitted. Our committee will review your documents and get back to you within 2\u20133 business days.';
+    }
+
+    if (email) {
+      document.getElementById('successEmailMsg').textContent =
+        `A confirmation email has been sent to ${email}`;
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── SUBMIT (wired to backend) ──
+  async function submitForm() {
+    if (isSubmitting) return;
+
+    hideApiErrors();
+    setSubmitting(true);
+
+    try {
+      const data = collectFormData();
+      if (!data) {
+        setSubmitting(false);
+        return;
+      }
+
+      const result = await submitRegistration(data);
+
+      // Upload proof document for Student/JobSeeker if a file was selected
+      const proofFile = document.getElementById('proofUpload')?.files?.[0];
+      if (proofFile && result.person_id && result.household_id) {
+        await uploadProofDocument(result.household_id, result.person_id, proofFile);
+      }
+
+      const primaryEmail = getFieldValue('email');
+      const tier = tierData[selectedTier];
+
+      if (result.payment_url) {
+        // Show brief success then redirect to Mollie
+        showSuccessScreen(result.reference_number, primaryEmail, true);
+        setTimeout(() => { window.location.href = result.payment_url; }, 1500);
+      } else {
+        // Free tier — show success screen
+        showSuccessScreen(result.reference_number, primaryEmail, false);
+      }
+
+    } catch (err) {
+      console.error('Registration error:', err);
+
+      if (err.status === 422 && err.details) {
+        // Map backend validation errors to form fields
+        const fieldMap = {
+          'persons.0.email': 'email',
+          'persons.0.firstName': 'firstName',
+          'persons.0.lastName': 'lastName',
+          'tier': null,
+          'consents.TERMS': null,
+          'consents.PRIVACY': null,
+        };
+
+        let errorMessages = [];
+        for (const [key, messages] of Object.entries(err.details)) {
+          const msg = Array.isArray(messages) ? messages[0] : messages;
+          errorMessages.push(msg);
+        }
+        showApiError(errorMessages.join(' '));
+      } else {
+        showApiError(err.message || 'Something went wrong. Please try again.');
+      }
+
+      setSubmitting(false);
+    }
+  }
+
+  // ── POST-PAYMENT RETURN HANDLER ──
+  // When Mollie redirects back with ?id=<householdId>, show the success screen
+  (function checkPaymentReturn() {
+    const params = new URLSearchParams(window.location.search);
+    const householdId = params.get('id');
+    if (householdId) {
+      const formCard = document.getElementById('formCard');
+      const stepper = document.getElementById('stepper');
+      const welcome = document.getElementById('welcomeSection');
+      const success = document.getElementById('successScreen');
+
+      if (formCard) formCard.style.display = 'none';
+      if (stepper) stepper.style.display = 'none';
+      if (welcome) welcome.style.display = 'none';
+      if (success) success.classList.add('show');
+
+      document.getElementById('successMsg').textContent =
+        'Your payment has been received! Our board will review and activate your membership shortly.';
+      document.getElementById('successEmailMsg').textContent =
+        'A confirmation email has been sent to your registered email address.';
+      // Hide reference number section if we don't have it from URL
+      const refDisplay = document.getElementById('refNumberDisplay');
+      if (refDisplay && !params.get('ref')) refDisplay.style.display = 'none';
+    }
+  })();
+</script>
+</body>
+</html>
