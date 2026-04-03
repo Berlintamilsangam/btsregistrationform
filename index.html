@@ -955,12 +955,12 @@
       <div class="field-row">
         <div class="field-group">
           <label class="field-label">First Name <span class="req">*</span></label>
-          <input type="text" class="field" id="firstName" placeholder="e.g. Ashok" required>
+          <input type="text" class="field" id="firstName" placeholder="e.g. Raj" required>
           <div class="field-error" id="firstNameError">Please enter your first name</div>
         </div>
         <div class="field-group">
           <label class="field-label">Last Name <span class="req">*</span></label>
-          <input type="text" class="field" id="lastName" placeholder="e.g. Gunasekaran" required>
+          <input type="text" class="field" id="lastName" placeholder="e.g. Kumar" required>
           <div class="field-error" id="lastNameError">Please enter your last name</div>
         </div>
       </div>
@@ -1478,7 +1478,7 @@
   };
 
   const genderMap   = { male: 'MALE', female: 'FEMALE', diverse: 'OTHER' };
-  const maritalMap  = { Single: 'SINGLE', Married: 'MARRIED', 'Prefer not to disclose': 'OTHER' };
+  const maritalMap  = { single: 'SINGLE', married: 'MARRIED', not_disclose: 'OTHER' };
 
   // ── NAVIGATION ──
   function goToStep(step) {
@@ -1679,10 +1679,399 @@
     el.classList.add('selected');
   }
 
-  // ── HEADER LANG ──
+  // ── HEADER LANG (i18n) ──
+  const i18n = {
+    en: {
+      welcomeGreeting: 'வணக்கம்!',
+      welcomeTitle: 'Join Our Community',
+      welcomeDesc: 'Become part of Berlin\'s vibrant Tamil community. Register in just a few minutes.',
+      stepPersonal: 'Personal', stepMembership: 'Membership', stepInterests: 'Interests', stepConsent: 'Consent', stepPayment: 'Payment',
+      step1Title: 'Personal Information', step1Desc: 'Tell us about yourself. All fields marked with * are required.',
+      firstName: 'First Name', lastName: 'Last Name', email: 'Email', confirmEmail: 'Confirm Email',
+      mobile: 'Mobile Number', whatsapp: 'WhatsApp Number', profession: 'Profession', dob: 'Date of Birth',
+      gender: 'Gender', male: 'Male', female: 'Female', diverse: 'Diverse',
+      maritalStatus: 'Marital Status', selectOption: 'Select...', single: 'Single', married: 'Married', notDisclose: 'Not Willing to Disclose',
+      nationality: 'Nationality', address: 'Address', street: 'Street & Number', city: 'City', plz: 'PLZ', country: 'Country',
+      germany: 'Germany', austria: 'Austria', switzerland: 'Switzerland', other: 'Other',
+      langPref: 'Language Preference', langHint: 'We\'ll send emails and messages in your preferred language.',
+      continueToMembership: 'Continue to Membership',
+      step2Title: 'Choose Your Membership', step2Desc: 'Select the tier that best fits your household.',
+      family: 'Family', couple: 'Couple', individual: 'Individual', studentJobseeker: 'Student / JobSeeker',
+      perYear: '/year', free: 'Free', popular: 'Popular',
+      partner: 'Partner', addChild: 'Add Child', proofEligibility: 'Proof of Eligibility', docType: 'Document Type',
+      uploadDrop: 'Drop your document here or click to browse', uploadHint: 'PDF, JPG, or PNG — Max 5MB',
+      back: 'Back', continueToInterests: 'Continue to Interests',
+      step3Title: 'Interests & Skills', step3Desc: 'Help us understand how you\'d like to contribute. Select all that apply.',
+      interests: 'Interests', otherInterests: 'Other Interests', otherInterestsPlaceholder: 'Any other interests not listed above...',
+      committeeInterest: 'Committee Interest', whichCommittees: 'Which committees interest you?',
+      cultural: 'Cultural', finance: 'Finance', youth: 'Youth', womens: 'Women\'s',
+      oneMoreThing: 'One More Thing', howHeard: 'How did you hear about us?',
+      socialMedia: 'Social Media', friendFamily: 'Friend or Family', communityEvent: 'Community Event', website: 'Website',
+      continueToConsent: 'Continue to Consent',
+      step4Title: 'Terms & Data Protection', step4Desc: 'Please review our terms and conditions and provide your consent.',
+      termsTitle: 'Terms and Conditions',
+      consent1: 'I agree to the above Terms and Conditions of Berlin Tamil Sangam e.V.',
+      consent2Label: 'I have read and accept the',
+      consent2Link: 'GDPR / Privacy Policy',
+      consent3: 'I\'d like to receive newsletters and community updates via email',
+      consent4: 'I\'d like to receive event reminders and updates via WhatsApp',
+      required: 'REQUIRED', optional: 'Optional. You can unsubscribe at any time.',
+      optionalWA: 'Optional. You can exit the WhatsApp group at any time.',
+      consentError: 'Please accept all required consents to continue',
+      declaration: 'Declaration', date: 'Date', place: 'Place',
+      continueToPayment: 'Continue to Payment',
+      step5PaidTitle: 'Complete Your Registration', step5PaidDesc: 'Review your summary and proceed to secure payment.',
+      orderSummary: 'Order Summary', billingPeriod: 'Billing Period', annual: 'Annual', totalDue: 'Total Due Today',
+      securePayment: 'Secure Payment via Mollie',
+      securePaymentDesc: 'You will be securely redirected to our payment provider where you can pay by <strong>Credit Card, SEPA, iDEAL, or PayPal</strong>. Your payment details are never stored on our servers.',
+      proceedToPayment: 'Proceed to Payment',
+      step5FreeTitle: 'Submit Your Application', step5FreeDesc: 'Review your details and submit your membership application.',
+      readyToSubmit: 'Ready to Submit',
+      readyToSubmitDesc: 'Once submitted, our committee will review your uploaded documents and get back to you within 2-3 business days.',
+      readyToSubmitHint: 'You\'ll receive a confirmation email with your reference number.',
+      submitApplication: 'Submit Application',
+      submitting: 'Submitting...',
+      regFailed: 'Registration failed', subFailed: 'Submission failed', tryAgain: 'Something went wrong. Please try again.',
+      successTitle: 'Welcome to Berlin Tamil Sangam!',
+      successTamil: 'உறுப்பினர் பதிவு வெற்றிகரமாக முடிந்தது!',
+      refLabel: 'Your Reference Number', saveRef: 'Please save your reference number for future correspondence.',
+      backToHome: 'Back to Home',
+      emailHint: 'Kindly ensure the same Email ID is used for payment and future references',
+    },
+    de: {
+      welcomeGreeting: 'வணக்கம்!',
+      welcomeTitle: 'Treten Sie unserer Gemeinschaft bei',
+      welcomeDesc: 'Werden Sie Teil der lebendigen tamilischen Gemeinschaft in Berlin. Registrieren Sie sich in wenigen Minuten.',
+      stepPersonal: 'Persönlich', stepMembership: 'Mitgliedschaft', stepInterests: 'Interessen', stepConsent: 'Einwilligung', stepPayment: 'Zahlung',
+      step1Title: 'Persönliche Daten', step1Desc: 'Erzählen Sie uns von sich. Alle mit * markierten Felder sind Pflichtfelder.',
+      firstName: 'Vorname', lastName: 'Nachname', email: 'E-Mail', confirmEmail: 'E-Mail bestätigen',
+      mobile: 'Handynummer', whatsapp: 'WhatsApp-Nummer', profession: 'Beruf', dob: 'Geburtsdatum',
+      gender: 'Geschlecht', male: 'Männlich', female: 'Weiblich', diverse: 'Divers',
+      maritalStatus: 'Familienstand', selectOption: 'Auswählen...', single: 'Ledig', married: 'Verheiratet', notDisclose: 'Keine Angabe',
+      nationality: 'Nationalität', address: 'Adresse', street: 'Straße & Hausnummer', city: 'Stadt', plz: 'PLZ', country: 'Land',
+      germany: 'Deutschland', austria: 'Österreich', switzerland: 'Schweiz', other: 'Andere',
+      langPref: 'Sprachpräferenz', langHint: 'Wir senden Ihnen E-Mails und Nachrichten in Ihrer bevorzugten Sprache.',
+      continueToMembership: 'Weiter zur Mitgliedschaft',
+      step2Title: 'Wählen Sie Ihre Mitgliedschaft', step2Desc: 'Wählen Sie die passende Stufe für Ihren Haushalt.',
+      family: 'Familie', couple: 'Paar', individual: 'Einzelperson', studentJobseeker: 'Student / Arbeitssuchend',
+      perYear: '/Jahr', free: 'Kostenlos', popular: 'Beliebt',
+      partner: 'Partner', addChild: 'Kind hinzufügen', proofEligibility: 'Berechtigungsnachweis', docType: 'Dokumenttyp',
+      uploadDrop: 'Dokument hier ablegen oder klicken zum Durchsuchen', uploadHint: 'PDF, JPG oder PNG — Max 5MB',
+      back: 'Zurück', continueToInterests: 'Weiter zu Interessen',
+      step3Title: 'Interessen & Fähigkeiten', step3Desc: 'Helfen Sie uns zu verstehen, wie Sie beitragen möchten. Wählen Sie alle zutreffenden.',
+      interests: 'Interessen', otherInterests: 'Andere Interessen', otherInterestsPlaceholder: 'Weitere Interessen, die oben nicht aufgeführt sind...',
+      committeeInterest: 'Ausschussinteresse', whichCommittees: 'Welche Ausschüsse interessieren Sie?',
+      cultural: 'Kultur', finance: 'Finanzen', youth: 'Jugend', womens: 'Frauen',
+      oneMoreThing: 'Noch eine Sache', howHeard: 'Wie haben Sie von uns erfahren?',
+      socialMedia: 'Soziale Medien', friendFamily: 'Freunde oder Familie', communityEvent: 'Gemeinschaftsveranstaltung', website: 'Webseite',
+      continueToConsent: 'Weiter zur Einwilligung',
+      step4Title: 'AGB & Datenschutz', step4Desc: 'Bitte lesen Sie unsere Geschäftsbedingungen und geben Sie Ihre Einwilligung.',
+      termsTitle: 'Allgemeine Geschäftsbedingungen',
+      consent1: 'Ich stimme den oben genannten AGB des Berlin Tamil Sangam e.V. zu.',
+      consent2Label: 'Ich habe die',
+      consent2Link: 'DSGVO / Datenschutzerklärung',
+      consent3: 'Ich möchte Newsletter und Community-Updates per E-Mail erhalten',
+      consent4: 'Ich möchte Veranstaltungserinnerungen und Updates per WhatsApp erhalten',
+      required: 'ERFORDERLICH', optional: 'Optional. Sie können sich jederzeit abmelden.',
+      optionalWA: 'Optional. Sie können die WhatsApp-Gruppe jederzeit verlassen.',
+      consentError: 'Bitte akzeptieren Sie alle erforderlichen Einwilligungen',
+      declaration: 'Erklärung', date: 'Datum', place: 'Ort',
+      continueToPayment: 'Weiter zur Zahlung',
+      step5PaidTitle: 'Registrierung abschließen', step5PaidDesc: 'Überprüfen Sie Ihre Zusammenfassung und fahren Sie mit der sicheren Zahlung fort.',
+      orderSummary: 'Bestellübersicht', billingPeriod: 'Abrechnungszeitraum', annual: 'Jährlich', totalDue: 'Heute fällig',
+      securePayment: 'Sichere Zahlung über Mollie',
+      securePaymentDesc: 'Sie werden sicher zu unserem Zahlungsanbieter weitergeleitet, wo Sie per <strong>Kreditkarte, SEPA, iDEAL oder PayPal</strong> bezahlen können. Ihre Zahlungsdaten werden niemals auf unseren Servern gespeichert.',
+      proceedToPayment: 'Weiter zur Zahlung',
+      step5FreeTitle: 'Antrag einreichen', step5FreeDesc: 'Überprüfen Sie Ihre Angaben und reichen Sie Ihren Mitgliedsantrag ein.',
+      readyToSubmit: 'Bereit zum Einreichen',
+      readyToSubmitDesc: 'Nach dem Einreichen wird unser Ausschuss Ihre Dokumente prüfen und sich innerhalb von 2-3 Werktagen bei Ihnen melden.',
+      readyToSubmitHint: 'Sie erhalten eine Bestätigungs-E-Mail mit Ihrer Referenznummer.',
+      submitApplication: 'Antrag einreichen',
+      submitting: 'Wird eingereicht...',
+      regFailed: 'Registrierung fehlgeschlagen', subFailed: 'Einreichung fehlgeschlagen', tryAgain: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
+      successTitle: 'Willkommen beim Berlin Tamil Sangam!',
+      successTamil: 'உறுப்பினர் பதிவு வெற்றிகரமாக முடிந்தது!',
+      refLabel: 'Ihre Referenznummer', saveRef: 'Bitte bewahren Sie Ihre Referenznummer für zukünftige Korrespondenz auf.',
+      backToHome: 'Zurück zur Startseite',
+      emailHint: 'Bitte verwenden Sie dieselbe E-Mail-Adresse für Zahlung und zukünftige Korrespondenz',
+    },
+    ta: {
+      welcomeGreeting: 'வணக்கம்!',
+      welcomeTitle: 'எங்கள் சமூகத்தில் இணையுங்கள்',
+      welcomeDesc: 'பெர்லினின் துடிப்பான தமிழ் சமூகத்தின் ஒரு பகுதியாக இணையுங்கள். சில நிமிடங்களில் பதிவு செய்யுங்கள்.',
+      stepPersonal: 'தனிப்பட்ட', stepMembership: 'உறுப்பினர்', stepInterests: 'ஆர்வங்கள்', stepConsent: 'ஒப்புதல்', stepPayment: 'கட்டணம்',
+      step1Title: 'தனிப்பட்ட தகவல்கள்', step1Desc: 'உங்களைப் பற்றி சொல்லுங்கள். * குறியிடப்பட்ட அனைத்து புலங்களும் கட்டாயமானவை.',
+      firstName: 'முதல் பெயர்', lastName: 'குடும்பப் பெயர்', email: 'மின்னஞ்சல்', confirmEmail: 'மின்னஞ்சலை உறுதிப்படுத்தவும்',
+      mobile: 'கைபேசி எண்', whatsapp: 'வாட்ஸ்அப் எண்', profession: 'தொழில்', dob: 'பிறந்த தேதி',
+      gender: 'பாலினம்', male: 'ஆண்', female: 'பெண்', diverse: 'பலதரப்பட்ட',
+      maritalStatus: 'திருமண நிலை', selectOption: 'தேர்ந்தெடுக்கவும்...', single: 'திருமணமாகாதவர்', married: 'திருமணமானவர்', notDisclose: 'தெரிவிக்க விரும்பவில்லை',
+      nationality: 'தேசியம்', address: 'முகவரி', street: 'தெரு & எண்', city: 'நகரம்', plz: 'அஞ்சல் குறியீடு', country: 'நாடு',
+      germany: 'ஜெர்மனி', austria: 'ஆஸ்திரியா', switzerland: 'சுவிட்சர்லாந்து', other: 'மற்றவை',
+      langPref: 'மொழி விருப்பம்', langHint: 'உங்கள் விருப்பமான மொழியில் மின்னஞ்சல்கள் மற்றும் செய்திகளை அனுப்புவோம்.',
+      continueToMembership: 'உறுப்பினர் பகுதிக்கு தொடரவும்',
+      step2Title: 'உங்கள் உறுப்பினர் நிலையைத் தேர்வுசெய்யவும்', step2Desc: 'உங்கள் குடும்பத்திற்கு பொருத்தமான நிலையைத் தேர்ந்தெடுக்கவும்.',
+      family: 'குடும்பம்', couple: 'ஜோடி', individual: 'தனிநபர்', studentJobseeker: 'மாணவர் / வேலை தேடுபவர்',
+      perYear: '/ஆண்டு', free: 'இலவசம்', popular: 'பிரபலம்',
+      partner: 'துணைவர்', addChild: 'குழந்தையை சேர்க்கவும்', proofEligibility: 'தகுதி சான்று', docType: 'ஆவண வகை',
+      uploadDrop: 'உங்கள் ஆவணத்தை இங்கே இழுக்கவும் அல்லது உலாவ கிளிக் செய்யவும்', uploadHint: 'PDF, JPG அல்லது PNG — அதிகபட்சம் 5MB',
+      back: 'பின்செல்', continueToInterests: 'ஆர்வங்களுக்கு தொடரவும்',
+      step3Title: 'ஆர்வங்கள் & திறன்கள்', step3Desc: 'நீங்கள் எவ்வாறு பங்களிக்க விரும்புகிறீர்கள் என்பதைப் புரிந்துகொள்ள உதவுங்கள்.',
+      interests: 'ஆர்வங்கள்', otherInterests: 'பிற ஆர்வங்கள்', otherInterestsPlaceholder: 'மேலே பட்டியலிடப்படாத பிற ஆர்வங்கள்...',
+      committeeInterest: 'குழு ஆர்வம்', whichCommittees: 'எந்த குழுக்களில் ஆர்வமுள்ளது?',
+      cultural: 'கலாச்சாரம்', finance: 'நிதி', youth: 'இளைஞர்', womens: 'மகளிர்',
+      oneMoreThing: 'இன்னொன்று', howHeard: 'எங்களைப் பற்றி எப்படி அறிந்தீர்கள்?',
+      socialMedia: 'சமூக ஊடகம்', friendFamily: 'நண்பர் அல்லது குடும்பம்', communityEvent: 'சமூக நிகழ்வு', website: 'இணையதளம்',
+      continueToConsent: 'ஒப்புதலுக்கு தொடரவும்',
+      step4Title: 'விதிமுறைகள் & தரவு பாதுகாப்பு', step4Desc: 'எங்கள் விதிமுறைகளை மதிப்பாய்வு செய்து உங்கள் ஒப்புதலை வழங்கவும்.',
+      termsTitle: 'விதிமுறைகள் மற்றும் நிபந்தனைகள்',
+      consent1: 'பெர்லின் தமிழ் சங்கம் e.V. இன் மேலே உள்ள விதிமுறைகளை ஏற்கிறேன்.',
+      consent2Label: 'நான் படித்து ஏற்றுக்கொள்கிறேன்',
+      consent2Link: 'GDPR / தனியுரிமைக் கொள்கை',
+      consent3: 'மின்னஞ்சல் வழியாக செய்திமடல்கள் மற்றும் சமூக புதுப்பிப்புகளைப் பெற விரும்புகிறேன்',
+      consent4: 'வாட்ஸ்அப் வழியாக நிகழ்வு நினைவூட்டல்கள் மற்றும் புதுப்பிப்புகளைப் பெற விரும்புகிறேன்',
+      required: 'கட்டாயம்', optional: 'விருப்பத்தேர்வு. நீங்கள் எப்போது வேண்டுமானாலும் விலகலாம்.',
+      optionalWA: 'விருப்பத்தேர்வு. நீங்கள் எப்போது வேண்டுமானாலும் வாட்ஸ்அப் குழுவிலிருந்து வெளியேறலாம்.',
+      consentError: 'தொடர அனைத்து கட்டாய ஒப்புதல்களையும் ஏற்கவும்',
+      declaration: 'பிரகடனம்', date: 'தேதி', place: 'இடம்',
+      continueToPayment: 'கட்டணத்திற்கு தொடரவும்',
+      step5PaidTitle: 'பதிவை நிறைவு செய்யுங்கள்', step5PaidDesc: 'உங்கள் சுருக்கத்தை மதிப்பாய்வு செய்து பாதுகாப்பான கட்டணத்திற்கு தொடரவும்.',
+      orderSummary: 'ஆர்டர் சுருக்கம்', billingPeriod: 'பில்லிங் காலம்', annual: 'ஆண்டுதோறும்', totalDue: 'இன்று செலுத்த வேண்டியது',
+      securePayment: 'Mollie வழியாக பாதுகாப்பான கட்டணம்',
+      securePaymentDesc: 'நீங்கள் எங்கள் கட்டண வழங்குநருக்கு பாதுகாப்பாக திருப்பி அனுப்பப்படுவீர்கள், அங்கு <strong>கிரெடிட் கார்டு, SEPA, iDEAL அல்லது PayPal</strong> மூலம் பணம் செலுத்தலாம்.',
+      proceedToPayment: 'கட்டணத்திற்கு தொடரவும்',
+      step5FreeTitle: 'விண்ணப்பத்தை சமர்ப்பிக்கவும்', step5FreeDesc: 'உங்கள் விவரங்களை மதிப்பாய்வு செய்து உங்கள் உறுப்பினர் விண்ணப்பத்தை சமர்ப்பிக்கவும்.',
+      readyToSubmit: 'சமர்ப்பிக்கத் தயார்',
+      readyToSubmitDesc: 'சமர்ப்பித்த பிறகு, எங்கள் குழு உங்கள் ஆவணங்களை மதிப்பாய்வு செய்து 2-3 வணிக நாட்களுக்குள் உங்களைத் தொடர்பு கொள்ளும்.',
+      readyToSubmitHint: 'உங்கள் குறிப்பு எண்ணுடன் உறுதிப்படுத்தல் மின்னஞ்சலைப் பெறுவீர்கள்.',
+      submitApplication: 'விண்ணப்பத்தை சமர்ப்பிக்கவும்',
+      submitting: 'சமர்ப்பிக்கப்படுகிறது...',
+      regFailed: 'பதிவு தோல்வியடைந்தது', subFailed: 'சமர்ப்பிப்பு தோல்வியடைந்தது', tryAgain: 'ஏதோ தவறு நேர்ந்தது. மீண்டும் முயற்சிக்கவும்.',
+      successTitle: 'பெர்லின் தமிழ் சங்கத்திற்கு வரவேற்கிறோம்!',
+      successTamil: 'உறுப்பினர் பதிவு வெற்றிகரமாக முடிந்தது!',
+      refLabel: 'உங்கள் குறிப்பு எண்', saveRef: 'எதிர்கால தொடர்பிற்காக உங்கள் குறிப்பு எண்ணை சேமித்து வைக்கவும்.',
+      backToHome: 'முகப்புக்குத் திரும்பு',
+      emailHint: 'கட்டணம் மற்றும் எதிர்கால குறிப்புகளுக்கு அதே மின்னஞ்சல் முகவரியைப் பயன்படுத்தவும்',
+    }
+  };
+
+  let currentLang = 'en';
+
   function setLang(lang) {
+    currentLang = lang;
     document.querySelectorAll('.header .lang-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
+    document.querySelector(`.header .lang-btn[onclick="setLang('${lang}')"]`)?.classList.add('active');
+    applyTranslations(lang);
+  }
+
+  function t(key) { return i18n[currentLang]?.[key] || i18n.en[key] || key; }
+
+  function applyTranslations(lang) {
+    const tr = i18n[lang] || i18n.en;
+
+    // Welcome
+    document.querySelector('.welcome h2').textContent = tr.welcomeTitle;
+    document.querySelector('.welcome p').textContent = tr.welcomeDesc;
+
+    // Stepper labels
+    const stepLabels = document.querySelectorAll('.step-label');
+    const stepKeys = ['stepPersonal','stepMembership','stepInterests','stepConsent','stepPayment'];
+    stepLabels.forEach((el, i) => { if (stepKeys[i]) el.textContent = tr[stepKeys[i]]; });
+
+    // Step 1
+    const s1 = document.getElementById('step1');
+    s1.querySelector('.step-header h3').textContent = tr.step1Title;
+    s1.querySelector('.step-header p').textContent = tr.step1Desc;
+
+    // Field labels (using a data-attribute-free approach — target by field IDs)
+    const labelMap = {
+      firstName: 'firstName', lastName: 'lastName', email: 'email', confirmEmail: 'confirmEmail',
+      phone: 'mobile', whatsapp: 'whatsapp', profession: 'profession', dob: 'dob',
+      nationality: 'nationality', street: 'street', city: 'city', plz: 'plz'
+    };
+    for (const [fieldId, trKey] of Object.entries(labelMap)) {
+      const field = document.getElementById(fieldId);
+      if (field) {
+        const label = field.closest('.field-group')?.querySelector('.field-label');
+        if (label) {
+          const req = label.querySelector('.req');
+          label.textContent = tr[trKey] + ' ';
+          if (req) label.appendChild(req);
+        }
+      }
+    }
+
+    // Gender label & options
+    const genderGroup = document.getElementById('genderError')?.closest('.field-group');
+    if (genderGroup) {
+      const gLabel = genderGroup.querySelector('.field-label');
+      if (gLabel) {
+        const req = gLabel.querySelector('.req');
+        gLabel.textContent = tr.gender + ' ';
+        if (req) gLabel.appendChild(req);
+      }
+      const opts = genderGroup.querySelectorAll('.lang-option');
+      if (opts[0]) opts[0].textContent = tr.male;
+      if (opts[1]) opts[1].textContent = tr.female;
+      if (opts[2]) opts[2].textContent = tr.diverse;
+    }
+
+    // Marital status
+    const maritalSelect = document.getElementById('maritalStatus');
+    if (maritalSelect) {
+      const mLabel = maritalSelect.closest('.field-group')?.querySelector('.field-label');
+      if (mLabel) {
+        const req = mLabel.querySelector('.req');
+        mLabel.textContent = tr.maritalStatus + ' ';
+        if (req) mLabel.appendChild(req);
+      }
+      const opts = maritalSelect.options;
+      if (opts[0]) opts[0].textContent = tr.selectOption;
+      if (opts[1]) opts[1].textContent = tr.single;
+      if (opts[2]) opts[2].textContent = tr.married;
+      if (opts[3]) opts[3].textContent = tr.notDisclose;
+    }
+
+    // Country select
+    const countrySelect = document.getElementById('country');
+    if (countrySelect) {
+      const cLabel = countrySelect.closest('.field-group')?.querySelector('.field-label');
+      if (cLabel) cLabel.textContent = tr.country;
+      const opts = countrySelect.options;
+      if (opts[0]) opts[0].textContent = tr.germany;
+      if (opts[1]) opts[1].textContent = tr.austria;
+      if (opts[2]) opts[2].textContent = tr.switzerland;
+      if (opts[3]) opts[3].textContent = tr.other;
+    }
+
+    // Section dividers in Step 1
+    const dividers = s1.querySelectorAll('.section-divider span');
+    if (dividers[0]) dividers[0].textContent = tr.address;
+    if (dividers[1]) dividers[1].textContent = tr.langPref;
+
+    // Language hint
+    const langHintEl = s1.querySelector('.lang-select + .field-hint');
+    if (langHintEl) langHintEl.textContent = tr.langHint;
+
+    // Email hint
+    const emailHintEl = document.getElementById('confirmEmail')?.closest('.field-group')?.querySelector('.field-hint');
+    if (emailHintEl) emailHintEl.textContent = tr.emailHint;
+
+    // Navigation buttons
+    const navBtns = s1.querySelectorAll('.nav-buttons .btn');
+    navBtns.forEach(btn => {
+      if (btn.classList.contains('btn-next')) btn.innerHTML = tr.continueToMembership + ' &rarr;';
+    });
+
+    // Step 2
+    const s2 = document.getElementById('step2');
+    s2.querySelector('.step-header h3').textContent = tr.step2Title;
+    s2.querySelector('.step-header p').textContent = tr.step2Desc;
+
+    // Step 2 nav
+    const s2Btns = s2.querySelectorAll('.nav-buttons .btn');
+    s2Btns.forEach(btn => {
+      if (btn.classList.contains('btn-back')) btn.innerHTML = '&larr; ' + tr.back;
+      if (btn.classList.contains('btn-next')) btn.innerHTML = tr.continueToInterests + ' &rarr;';
+    });
+
+    // Step 3
+    const s3 = document.getElementById('step3');
+    s3.querySelector('.step-header h3').textContent = tr.step3Title;
+    s3.querySelector('.step-header p').textContent = tr.step3Desc;
+    const s3Dividers = s3.querySelectorAll('.section-divider span');
+    if (s3Dividers[0]) s3Dividers[0].textContent = tr.committeeInterest;
+    if (s3Dividers[1]) s3Dividers[1].textContent = tr.oneMoreThing;
+
+    // Step 3 labels
+    const interestsLabel = document.getElementById('interestsGrid')?.closest('.field-group')?.querySelector('.field-label');
+    if (interestsLabel) interestsLabel.textContent = tr.interests;
+    const otherIntLabel = document.getElementById('otherInterests')?.closest('.field-group')?.querySelector('.field-label');
+    if (otherIntLabel) otherIntLabel.textContent = tr.otherInterests;
+    const otherIntInput = document.getElementById('otherInterests');
+    if (otherIntInput) otherIntInput.placeholder = tr.otherInterestsPlaceholder;
+    const committeeLabel = document.getElementById('committeeGrid')?.closest('.field-group')?.querySelector('.field-label');
+    if (committeeLabel) committeeLabel.textContent = tr.whichCommittees;
+
+    // Referral select
+    const refSelect = document.getElementById('referralSource');
+    if (refSelect) {
+      const rLabel = refSelect.closest('.field-group')?.querySelector('.field-label');
+      if (rLabel) rLabel.textContent = tr.howHeard;
+      const opts = refSelect.options;
+      if (opts[0]) opts[0].textContent = tr.selectOption;
+      if (opts[1]) opts[1].textContent = tr.socialMedia;
+      if (opts[2]) opts[2].textContent = tr.friendFamily;
+      if (opts[3]) opts[3].textContent = tr.communityEvent;
+      if (opts[4]) opts[4].textContent = tr.website;
+      if (opts[5]) opts[5].textContent = tr.other;
+    }
+
+    const s3Btns = s3.querySelectorAll('.nav-buttons .btn');
+    s3Btns.forEach(btn => {
+      if (btn.classList.contains('btn-back')) btn.innerHTML = '&larr; ' + tr.back;
+      if (btn.classList.contains('btn-next')) btn.innerHTML = tr.continueToConsent + ' &rarr;';
+    });
+
+    // Step 4
+    const s4 = document.getElementById('step4');
+    s4.querySelector('.step-header h3').textContent = tr.step4Title;
+    s4.querySelector('.step-header p').textContent = tr.step4Desc;
+
+    const s4Dividers = s4.querySelectorAll('.section-divider span');
+    if (s4Dividers[0]) s4Dividers[0].textContent = tr.declaration;
+
+    // Declaration labels
+    const declDate = document.getElementById('declarationDate');
+    if (declDate) {
+      const dLabel = declDate.closest('.field-group')?.querySelector('.field-label');
+      if (dLabel) { const req = dLabel.querySelector('.req'); dLabel.textContent = tr.date + ' '; if (req) dLabel.appendChild(req); }
+    }
+    const declPlace = document.getElementById('declarationPlace');
+    if (declPlace) {
+      const pLabel = declPlace.closest('.field-group')?.querySelector('.field-label');
+      if (pLabel) { const req = pLabel.querySelector('.req'); pLabel.textContent = tr.place + ' '; if (req) pLabel.appendChild(req); }
+    }
+
+    const s4Btns = s4.querySelectorAll('.nav-buttons .btn');
+    s4Btns.forEach(btn => {
+      if (btn.classList.contains('btn-back')) btn.innerHTML = '&larr; ' + tr.back;
+      if (btn.classList.contains('btn-next')) btn.innerHTML = tr.continueToPayment + ' &rarr;';
+    });
+
+    // Step 5 — Paid
+    const paidDiv = document.getElementById('paidPayment');
+    if (paidDiv) {
+      paidDiv.querySelector('.step-header h3').textContent = tr.step5PaidTitle;
+      paidDiv.querySelector('.step-header p').textContent = tr.step5PaidDesc;
+      const summaryH4 = paidDiv.querySelector('.order-summary h4');
+      if (summaryH4) summaryH4.textContent = tr.orderSummary;
+      document.getElementById('payBtnText').textContent = tr.proceedToPayment + ' \u2192';
+      document.getElementById('payBtnSpinner').textContent = tr.submitting;
+    }
+
+    // Step 5 — Free
+    const freeDiv = document.getElementById('freePayment');
+    if (freeDiv) {
+      freeDiv.querySelector('.step-header h3').textContent = tr.step5FreeTitle;
+      freeDiv.querySelector('.step-header p').textContent = tr.step5FreeDesc;
+      const freeConf = freeDiv.querySelector('.free-confirmation h3');
+      if (freeConf) freeConf.textContent = tr.readyToSubmit;
+      document.getElementById('freeBtnText').textContent = tr.submitApplication + ' \u2713';
+      document.getElementById('freeBtnSpinner').textContent = tr.submitting;
+    }
+
+    const s5Btns = document.getElementById('step5')?.querySelectorAll('.btn-back');
+    s5Btns?.forEach(btn => { btn.innerHTML = '&larr; ' + tr.back; });
+
+    // Success screen
+    document.querySelector('#successScreen h2').textContent = tr.successTitle;
+    document.querySelector('#successScreen .success-tamil').textContent = tr.successTamil;
+    const refLabel = document.querySelector('#refNumberDisplay span:first-child');
+    if (refLabel) refLabel.textContent = tr.refLabel;
+    const saveRefEl = document.querySelector('#successScreen p:last-of-type');
+    if (saveRefEl && saveRefEl.textContent.includes('save')) saveRefEl.textContent = tr.saveRef;
+    const homeBtn = document.querySelector('#successScreen .btn-next');
+    if (homeBtn) homeBtn.innerHTML = tr.backToHome + ' &rarr;';
   }
 
   // ════════════════════════════════════════════════════════════════════
@@ -1735,6 +2124,7 @@
       dob:            getFieldValue('dob') || null,
       gender:         genderMap[selectedGender] || null,
       maritalStatus:  maritalMap[document.getElementById('maritalStatus')?.value] || null,
+
       nationality:    getFieldValue('nationality') || null,
       profession:     getFieldValue('profession') || null,
       role:           'ADULT',
